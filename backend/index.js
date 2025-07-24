@@ -100,3 +100,4 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 }); // Force redeploy
 // Force redeploy
+// Regenerate Prisma client
