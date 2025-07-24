@@ -37,12 +37,12 @@ app.get('/clients/:id', async (req, res) => {
 // Create a new client
 app.post('/clients', async (req, res) => {
   try {
-    const { name, address, phone, email } = req.body;
+    const { name, address, phone, email, serviceDay, servicePerson } = req.body;
     if (!name || !address || !phone || !email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
     const client = await prisma.client.create({
-      data: { name, address, phone, email },
+      data: { name, address, phone, email, serviceDay, servicePerson },
     });
     res.status(201).json(client);
   } catch (err) {
@@ -53,10 +53,10 @@ app.post('/clients', async (req, res) => {
 // Update a client
 app.put('/clients/:id', async (req, res) => {
   try {
-    const { name, address, phone, email } = req.body;
+    const { name, address, phone, email, serviceDay, servicePerson } = req.body;
     const client = await prisma.client.update({
       where: { id: req.params.id },
-      data: { name, address, phone, email },
+      data: { name, address, phone, email, serviceDay, servicePerson },
     });
     res.json(client);
   } catch (err) {

@@ -20,5 +20,7 @@ model Client {
   address String
   phone   String
   email   String
+  serviceDay String?
+  servicePerson String?
   createdAt DateTime @default(now())
 }
