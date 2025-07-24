@@ -29,6 +29,15 @@ runMigrations();
 app.use(cors());
 app.use(express.json());
 
+// Add debugging middleware
+app.use((req, res, next) => {
+  console.log('Request URL:', req.url);
+  console.log('Request method:', req.method);
+  console.log('Request headers:', req.headers);
+  console.log('Raw request body:', req.body);
+  next();
+});
+
 // Health check
 app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Skimmer backend is running!' });
