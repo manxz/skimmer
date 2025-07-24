@@ -59,14 +59,23 @@ app.get('/clients/:id', async (req, res) => {
 app.post('/clients', async (req, res) => {
   try {
     const { name, address, phone, email, serviceDay, servicePerson } = req.body;
+    console.log('Received request:', { name, address, phone, email, serviceDay, servicePerson });
+    
     if (!name || !address || !phone || !email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
+    
+    const clientData = { name, address, phone, email, serviceDay, servicePerson };
+    console.log('Creating client with data:', clientData);
+    
     const client = await prisma.client.create({
-      data: { name, address, phone, email, serviceDay, servicePerson },
+      data: clientData,
     });
+    
+    console.log('Created client:', client);
     res.status(201).json(client);
   } catch (err) {
+    console.error('Error creating client:', err);
     res.status(500).json({ error: 'Failed to create client' });
   }
 });
