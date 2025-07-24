@@ -1,9 +1,30 @@
 const express = require('express');
 const cors = require('cors');
 const { PrismaClient } = require('./generated/prisma');
+const { exec } = require('child_process');
 
 const app = express();
 const prisma = new PrismaClient();
+
+// Run database migrations on startup
+async function runMigrations() {
+  try {
+    console.log('Running database migrations...');
+    const { exec } = require('child_process');
+    exec('npx prisma migrate deploy', (error, stdout, stderr) => {
+      if (error) {
+        console.error('Migration error:', error);
+      } else {
+        console.log('Migrations completed successfully');
+      }
+    });
+  } catch (err) {
+    console.error('Failed to run migrations:', err);
+  }
+}
+
+// Run migrations when the app starts
+runMigrations();
 
 app.use(cors());
 app.use(express.json());
